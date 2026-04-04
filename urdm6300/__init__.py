@@ -27,7 +27,7 @@ import ubinascii
 class Rdm6300:
     uart = None
 
-    def __init__(self, uart=None):
+    def __init__(self, uart=None, tx=19, rx=18, baudrate=9600):
         """[Initialise the UART driver]
         Args:
             uart (UART): The UART object to use.
@@ -36,8 +36,8 @@ class Rdm6300:
             self.uart = uart
         else:
             self.uart = machine.UART(
-                1, baudrate=9600, timeout=2, timeout_char=10, tx=19, rx=18)
-            self.uart.init(9600)
+                1, baudrate=baudrate, timeout=2, timeout_char=10, tx=tx, rx=rx)
+            self.uart.init(baudrate)
 
         # sometimes there's unwanted data in the buffer when we boot up
         # read it until it's all gone
@@ -96,7 +96,7 @@ class Rdm6300:
             string: A string of the card ID as a decimal (normally the value printed on the card)
         """
         # if we have data waiting for us
-        if self.uart.any():
+        if self.uart and self.uart.any():
             data = self.uart.read()
             if data:
                 return self._parse_packet(data)

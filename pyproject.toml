@@ -1,0 +1,9 @@
+[project]
+name = "urdm6300"
+version = "0.1.0"
+description = "urdm6300 is a simple micro python driver / library that allows you to read RFID cards from an attached RDM6300 board. Several suppliers manufacture these boards, including seeed studio and various Aliexpress sellers."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pre-commit>=4.5.1",
+]
